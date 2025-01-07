@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Pjr_Capa_Entidad;
 using System.Data;
 using System.Data.SqlClient;
-//using System.Windows.Forms;
+using System.Windows.Forms;
 
 
 namespace Pjr_Capa_Datos
@@ -26,26 +26,38 @@ namespace Pjr_Capa_Datos
                 cmd.Parameters.AddWithValue("@idpro", pro.Idprod);
                 cmd.Parameters.AddWithValue("@descripcion", pro.Descripcion);
                 cmd.Parameters.AddWithValue("@Pre_compra", pro.PrecioCompra);
-                cmd.Parameters.AddWithValue("@StockActual", pro.);
-                cmd.Parameters.AddWithValue("@idCat", pro.Idprod);
-                cmd.Parameters.AddWithValue("@Foto", pro.Idprod);
-                cmd.Parameters.AddWithValue("@Pre_Venta", pro.Idprod);
-                cmd.Parameters.AddWithValue("@Frmto_compra", pro.Idprod);
-                cmd.Parameters.AddWithValue("@Utilidad", pro.Idprod);
-                cmd.Parameters.AddWithValue("@ValorporProd", pro.Idprod);
-                cmd.Parameters.AddWithValue("@Prin_Activo", pro.Idprod);
-                cmd.Parameters.AddWithValue("@Laboratorio", pro.Idprod);
-                cmd.Parameters.AddWithValue("@undMin", pro.Idprod);
-                cmd.Parameters.AddWithValue("@undMax", pro.Idprod);
-                cmd.Parameters.AddWithValue("@fechaVncmnto", pro.Idprod);
-                cmd.Parameters.AddWithValue("@Ventaconreceta", pro.Idprod);
 
+                cmd.Parameters.AddWithValue("@StockActual", pro.StockActual);
+                cmd.Parameters.AddWithValue("@idCat", pro.IdCat);
 
+                cmd.Parameters.AddWithValue("@Foto", pro.Foto);
+                cmd.Parameters.AddWithValue("@Pre_Venta", pro.Preventa);
+                cmd.Parameters.AddWithValue("@Frmto_compra", pro.FormatoCompra);
+                cmd.Parameters.AddWithValue("@Utilidad", pro.UtilidadUnint);
+                cmd.Parameters.AddWithValue("@ValorporProd", pro.ValorxCant);
+                cmd.Parameters.AddWithValue("@Prin_Activo", pro.PrincipioActivo);
+
+                cmd.Parameters.AddWithValue("@Laboratorio", pro.Laboratorio);
+
+                cmd.Parameters.AddWithValue("@undMin", pro.Und_min);
+                cmd.Parameters.AddWithValue("@undMax", pro.Und_max);
+                cmd.Parameters.AddWithValue("@fechaVncmnto", pro.FechaVence);
+                cmd.Parameters.AddWithValue("@Ventaconreceta", pro.Venta_conReceta);
+
+                cadenaconex.Open();
+                cmd.ExecuteNonQuery();
+                cadenaconex.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                if ( cadenaconex.State ==ConnectionState.Open )
+                { 
+                    cadenaconex.Close(); 
+                
+                }
 
-                throw;
+                MessageBox.Show("wachau error: " + ex.Message, "Registro de producto", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+               
             }
         
         
